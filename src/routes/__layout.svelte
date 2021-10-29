@@ -10,7 +10,8 @@
 </main>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<p><a href="https://svelte.dev">Svelte Kit</a> fakturagenerator med <a href="https://www.prisma.io">Prisma</a> og <a href="https://pdf-lib.js.org">PDF-LIB</a></p>
+	<p>(uten auth inntil videre, så kun til lokal bruk)</p>
 </footer>
 
 <style>
@@ -23,6 +24,9 @@
 		max-width: 1024px;
 		margin: 0 auto;
 		box-sizing: border-box;
+	}
+	p:not(:first-child) {
+		margin-top: 0;
 	}
 
 	footer {

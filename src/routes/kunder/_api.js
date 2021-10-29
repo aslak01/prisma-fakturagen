@@ -6,7 +6,7 @@ export async function api(request, resource, data) {
   let status = 500
   switch (request.method.toUpperCase()) {
     case 'DELETE':
-      await prisma.todo.delete({
+      await prisma.kunde.delete({
         where: {
           uid: resource.split('/').pop(),
         },
@@ -14,14 +14,16 @@ export async function api(request, resource, data) {
       status = 200
       break
     case 'GET':
-      body = await prisma.todo.findMany()
+      body = await prisma.kunde.findMany()
       status = 200
       break
     case 'PATCH':
-      body = await prisma.todo.update({
+      body = await prisma.kunde.update({
         data: {
-          done: data.done,
-          text: data.text,
+          name: data.name,
+          orgnr: data.orgnr,
+          address: data.address,
+          fakturaer: data.fakturaer,
         },
         where: {
           uid: resource.split('/').pop(),
@@ -30,11 +32,13 @@ export async function api(request, resource, data) {
       status = 200
       break
     case 'POST':
-      body = await prisma.todo.create({
+      body = await prisma.kunde.create({
         data: {
           created_at: new Date(),
-          done: false,
-          text: data.text,
+          name: data.name,
+          orgnr: data.orgnr,
+          address: data.address,
+          fakturaer: data.fakturaer,
         },
       })
       status = 201
@@ -44,7 +48,7 @@ export async function api(request, resource, data) {
   // if the request came from a <form> submission, the browser's default
   // behaviour is to show the URL corresponding to the form's "action"
   // attribute. in those cases, we want to redirect them back to the
-  // /todos page, rather than showing the response
+  // /kundes page, rather than showing the response
   if (
     request.method !== 'GET' &&
     request.headers.accept !== 'application/json'
@@ -52,7 +56,7 @@ export async function api(request, resource, data) {
     return {
       status: 303,
       headers: {
-        location: '/todos',
+        location: '/kunder',
       },
     }
   }

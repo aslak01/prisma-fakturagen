@@ -1,0 +1,48 @@
+// https://www.mikenikles.com/blog/svelte-kit-prisma-a-match-made-in-digital-heaven
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Todo {
+  uid        String     @id @default(cuid())
+  created_at DateTime   @default(now())
+  text       String
+  done       Boolean
+}
+
+model Kunde {
+  uid         String    @id @default(cuid())
+  created_at  DateTime  @default(now())
+  name        String    @unique
+  orgnr       String    @unique
+  address     String
+  fakturaer   Faktura[] @relation(references: [uid])
+}
+
+model Faktura {
+  uid         String      @id @default(cuid())
+  fakturanr   Int         @unique
+  created_at  DateTime    @default(now())
+  lines       FakturaL[]  @relation(references: [uid])
+  kunde       Kunde[]     @relation(references: [uid])
+  forfall     DateTime
+}
+
+model FakturaL {
+  uid         Int         @id @default(autoincrement())
+  beskrivelse String
+  netto       Int
+  brutto      Int
+  mva         Int
+  dato        DateTime
+  id          Int         @unique
+  faktura     Faktura[]   @relation(references: [uid])
+}
