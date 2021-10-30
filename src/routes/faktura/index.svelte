@@ -40,11 +40,11 @@
 </script>
 
 <svelte:head>
-  <title>fakturaer</title>
+  <title>Fakturaer</title>
 </svelte:head>
 
 <div class="fakturaer">
-  <h1>fakturaer</h1>
+  <h1>Fakturaer</h1>
 
   <form
     class="new"
