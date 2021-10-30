@@ -1,33 +1,31 @@
 <script context="module">
-	export const prerender = true;
+  export const prerender = true
 </script>
 
 <script>
-	import Counter from '$lib/Counter.svelte';
+  import Counter from '$lib/Counter.svelte'
 </script>
 
 <svelte:head>
-	<title>Heim</title>
+  <title>Heim</title>
 </svelte:head>
 
 <section>
-	<h1>
-		En ny sveltekitapp
-	</h1>
+  <h1>En ny sveltekitapp</h1>
 
-	<Counter />
+  <Counter />
 </section>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
 
-	h1 {
-		width: 100%;
-	}
+  h1 {
+    width: 100%;
+  }
 </style>
