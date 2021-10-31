@@ -3,7 +3,7 @@
 
   import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 
-  import { drawTitle, drawKunde, drawFakturaLinjer } from './drawRoutines'
+  import { drawTitle, drawKunde, drawFakturaLinjer } from './drawRoutines.js'
 
   let pdf
   let pdfWasGenerated = false
