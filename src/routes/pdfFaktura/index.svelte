@@ -21,9 +21,9 @@
   const aMonthInTheFuture = () => new Date().getTime() + 1000 * 3600 * 24 * 30.5
 
   export let kunde = {
-    navn: 'Kunde kundesen',
-    orgnr: '123123123',
-    adr: 'Adressevei 12, Oslo 2131',
+    navn: import.meta.env.VITE_MY_CUSTOMER_NAME || 'Kunde kundesen',
+    orgnr: import.meta.env.VITE_MY_CUSTOMER_ORGNO || '123321312',
+    adr: import.meta.env.VITE_MY_CUSTOMER_ADDR || 'Eksempelvei 21, Byen 1234',
   }
   export let lineHeadings = {
     dato: 'Dato',
@@ -31,7 +31,11 @@
     pris: 'Pris',
   }
 
-  export let lines = [
+  import { firstFaktura } from '$lib/demofaktura.js'
+
+  let test = firstFaktura
+
+  export let lines = test || [
     {
       dato: new Date(randomDate()),
       beskrivelse: 'Noe som koster penger',
@@ -75,10 +79,10 @@
   }
 
   const dinBank = {
-    accno: import.meta.env.VITE_YOUR_BANK_ACC,
-    iban: import.meta.env.VITE_YOUR_IBAN,
-    bic: import.meta.env.VITE_YOUR_BIC,
-    bank: import.meta.env.VITE_YOUR_BANK,
+    accno: import.meta.env.VITE_YOUR_BANK_ACC || '123123123',
+    iban: import.meta.env.VITE_YOUR_IBAN || 'iban123123123',
+    bic: import.meta.env.VITE_YOUR_BIC || 'BANKNAME123',
+    bank: import.meta.env.VITE_YOUR_BANK || 'My Bank',
   }
 
   async function createPdf() {
@@ -88,7 +92,11 @@
     const page = pdfDoc.addPage()
     const { width, height } = page.getSize()
 
-    // const stringWidth = helvetica.widthOfTextAtSize(string, fontSize)
+    pdfDoc.setTitle('Faktura 1')
+    pdfDoc.setAuthor(import.meta.env.VITE_MY_NAME)
+    pdfDoc.setSubject(import.meta.env.VITE_MY_SERVICE)
+    pdfDoc.setCreationDate(new Date('2018-06-24T01:58:37.228Z'))
+    pdfDoc.setModificationDate(new Date('2019-12-21T07:00:11.000Z'))
 
     const settings = {
       page,

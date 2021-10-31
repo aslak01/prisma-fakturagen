@@ -167,6 +167,14 @@ export const drawSums = (lines, settings, linesEnd) => {
     font,
     color,
   })
+  const noMva = 'MVA: 0%'
+  page.drawText(noMva, {
+    x: width - font.widthOfTextAtSize(noMva, size),
+    y: linesEnd - 45,
+    size,
+    font,
+    color,
+  })
 }
 
 export const drawPayTo = (bank, settings, linesEnd) => {
