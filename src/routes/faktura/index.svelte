@@ -30,7 +30,7 @@
   export let kunder
 
   async function patch(res) {
-    const faktura = await res.json()
+    let faktura = await res.json()
 
     faktura = fakturaer.map((t) => {
       if (t.uid === faktura.uid) return faktura
