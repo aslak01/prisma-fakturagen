@@ -27,6 +27,9 @@
       <li class:active={$page.path === '/faktura'}>
         <a sveltekit:prefetch href="/faktura">Faktura</a>
       </li>
+      <li class:active={$page.path === '/pdfFaktura'}>
+        <a sveltekit:prefetch href="/pdfFaktura">PDF Faktura</a>
+      </li>
     </ul>
   </nav>
 

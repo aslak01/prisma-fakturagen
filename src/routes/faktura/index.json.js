@@ -21,7 +21,6 @@ export const post = async (request) => {
     // request.body is _also_ a (readonly) FormData
     // object, which allows us to get form data
     // with the `body.get(key)` method
-    fakturanr: request.body.get('fakturanr'),
     lines: request.body.get('lines'),
     kunde: request.body.get('kunde'),
     forfall: new Date(request.body.get('forfall')),

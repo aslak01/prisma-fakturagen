@@ -24,16 +24,14 @@ model Kunde {
   name        String    @unique
   orgnr       String    @unique
   address     String
-  fakturaer   Faktura[] @relation(references: [uid])
+  fakturaer   Faktura[] @relation(references: [id])
   fakturalinjer FakturaL[]
 }
 
 model Faktura {
-  uid         String      @id @default(cuid())
-  fakturanr   Int         @unique
+  id          Int      @id @default(autoincrement())
   created_at  DateTime    @default(now())
-  lines       FakturaL[]  @relation(fields: [linjeId], references: [uid])
-  linjeId     String
+  lines       FakturaL[]
   kunde       Kunde[]     @relation(fields: [kundeId], references: [uid])
   kundeId     String
   forfall     DateTime
@@ -46,9 +44,9 @@ model FakturaL {
   mva         Int
   dato        DateTime
   id          Int         @unique
-  faktura     Faktura[]   @relation(fields: [fakturaId], references: [uid])
-  fakturaId   String
-  kunde       Kunde[]     @relation(fields: [kundeId], references: [uid])
-  kundeId     String
+  faktura     Faktura?   @relation(fields: [fakturaId], references: [id])
+  fakturaId   Int?
+  kunde       Kunde?     @relation(fields: [kundeId], references: [uid])
+  kundeId     String?
 
 }

@@ -8,7 +8,7 @@ export async function api(request, resource, data) {
     case 'DELETE':
       await prisma.faktura.delete({
         where: {
-          uid: resource.split('/').pop(),
+          id: resource.split('/').pop(),
         },
       })
       status = 200
@@ -18,26 +18,28 @@ export async function api(request, resource, data) {
       status = 200
       break
     case 'PATCH':
+      console.log(body)
       body = await prisma.faktura.update({
         data: {
+          created_at: new Date(),
           lines: data.lines,
-          kunde: data.kunde,
-          forfall: data.forfall,
+          kunde: { connect: { uid: data.kunde } },
+          kundeId: data.kunde,
+          forfall: new Date(data.forfall),
         },
         where: {
-          uid: resource.split('/').pop(),
+          id: resource.split('/').pop(),
         },
       })
       status = 200
       break
     case 'POST':
-      const fakturanr = await prisma.faktura.count()
       body = await prisma.faktura.create({
         data: {
-          fakturanr,
           created_at: new Date(),
           lines: data.lines,
           kunde: { connect: { uid: data.kunde } },
+          kundeId: data.kunde,
           forfall: data.forfall,
         },
         include: {
