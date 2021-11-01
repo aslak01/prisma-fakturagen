@@ -33,30 +33,32 @@
 
   import { firstFaktura } from '$lib/demofaktura.js'
 
-  let test = firstFaktura
+  let test = firstFaktura || false
 
-  export let lines = test || [
-    {
-      dato: new Date(randomDate()),
-      beskrivelse: 'Noe som koster penger',
-      pris: 123.3,
-    },
-    {
-      dato: new Date(randomDate()),
-      beskrivelse: 'Noe annet som koster penger',
-      pris: 4.2,
-    },
-    {
-      dato: new Date(randomDate()),
-      beskrivelse: 'En tredje ting',
-      pris: 69,
-    },
-    {
-      dato: new Date(randomDate()),
-      beskrivelse: 'En fjerde ting',
-      pris: 42,
-    },
-  ]
+  export let lines = test.length
+    ? test
+    : [
+        {
+          dato: new Date(randomDate()),
+          beskrivelse: 'Noe som koster penger',
+          pris: 123.3,
+        },
+        {
+          dato: new Date(randomDate()),
+          beskrivelse: 'Noe annet som koster penger',
+          pris: 4.2,
+        },
+        {
+          dato: new Date(randomDate()),
+          beskrivelse: 'En tredje ting',
+          pris: 69,
+        },
+        {
+          dato: new Date(randomDate()),
+          beskrivelse: 'En fjerde ting',
+          pris: 42,
+        },
+      ]
 
   const dittFirma = {
     navn: import.meta.env.VITE_YOUR_FIRM_NAME || 'Mitt firma',
@@ -93,8 +95,8 @@
     const { width, height } = page.getSize()
 
     pdfDoc.setTitle('Faktura 1')
-    pdfDoc.setAuthor(import.meta.env.VITE_MY_NAME)
-    pdfDoc.setSubject(import.meta.env.VITE_MY_SERVICE)
+    pdfDoc.setAuthor(import.meta.env.VITE_MY_NAME || 'Jonas Jonassen')
+    pdfDoc.setSubject(import.meta.env.VITE_MY_SERVICE || 'Tjeneste')
     pdfDoc.setCreationDate(new Date('2018-06-24T01:58:37.228Z'))
     pdfDoc.setModificationDate(new Date('2019-12-21T07:00:11.000Z'))
 
