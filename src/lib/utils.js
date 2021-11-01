@@ -29,3 +29,24 @@ export const splitStringInNs = (string, n = 3) => {
     .join('')
     .trim()
 }
+
+export const splitStrInBacc = (string) => {
+  let str = string
+  if (typeof str !== 'string' || !(str instanceof String)) {
+    str = String(str)
+  }
+  return [...str]
+    .map((d, i) => (i === 4 || i === 6 ? ' ' + d : d))
+    .join('')
+    .trim()
+}
+export const splitStrInIBAN = (string) => {
+  let str = string
+  if (typeof str !== 'string' || !(str instanceof String)) {
+    str = String(str)
+  }
+  return [...str]
+    .map((d, i) => (i === 2 || i === 4 || i === 8 || i === 14 ? ' ' + d : d))
+    .join('')
+    .trim()
+}

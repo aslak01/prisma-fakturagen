@@ -1,4 +1,9 @@
-import { parseDate, formatNumberToCurrency } from '$lib/utils'
+import {
+  parseDate,
+  formatNumberToCurrency,
+  splitStrInBacc,
+  splitStrInIBAN,
+} from '$lib/utils'
 
 let headerSpace = 60
 
@@ -44,7 +49,12 @@ export const drawKunde = (kunde, settings) => {
   }
 }
 
-export const drawFakturaLinjer = (lineHeadings, lines, settings) => {
+export const drawFakturaLinjer = (
+  lineHeadings,
+  lines,
+  settings,
+  currency = 'EUR'
+) => {
   const page = settings.page
   const size = settings.lineSize
   const font = settings.font
@@ -79,7 +89,7 @@ export const drawFakturaLinjer = (lineHeadings, lines, settings) => {
       if (typeof value.getMonth === 'function') {
         string = parseDate(value)
       } else if (typeof value === 'number') {
-        string = formatNumberToCurrency(value)
+        string = formatNumberToCurrency(value, currency)
       } else {
         string = String(value)
       }
@@ -147,7 +157,7 @@ export const drawFakturaInfo = (company, fakturaMeta, settings) => {
   }
 }
 
-export const drawSums = (lines, settings, linesEnd) => {
+export const drawSums = (lines, settings, linesEnd, currency = 'EUR') => {
   const page = settings.page
   const size = settings.lineSize
   const font = settings.font
@@ -159,7 +169,10 @@ export const drawSums = (lines, settings, linesEnd) => {
   const lineHeight = font.heightAtSize(size) + 5
   const lineHeightBold = boldFont.heightAtSize(size)
 
-  const sum = formatNumberToCurrency(lines.reduce((a, b) => +a + +b.pris, 0))
+  const sum = formatNumberToCurrency(
+    lines.reduce((a, b) => +a + +b.pris, 0),
+    currency
+  )
   page.drawText(sum, {
     x: width - font.widthOfTextAtSize(sum, size),
     y: linesEnd - 30,
@@ -207,13 +220,15 @@ export const drawPayTo = (bank, settings, linesEnd) => {
   })
   for (const [i, value] of Object.entries(bank).entries()) {
     let key = value[0]
-    const string = value[1]
+    let string = value[1]
     if (key === 'kontonr') {
-      key = 'Kontonummer '
+      key = 'Kontonummer'
+      string = splitStrInBacc(string)
     } else if (key === 'bic') {
       key = 'BIC'
     } else if (key === 'iban') {
       key = 'IBAN'
+      string = splitStrInIBAN(string)
     } else if (key === 'bank') {
       key = 'Bank'
     }

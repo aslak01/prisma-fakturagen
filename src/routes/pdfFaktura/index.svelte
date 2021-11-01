@@ -3,7 +3,7 @@
 
   import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 
-  import { splitStringInNs } from '$lib/utils'
+  import { splitStringInNs, splitStrInBacc } from '$lib/utils'
 
   import {
     drawTitle,
