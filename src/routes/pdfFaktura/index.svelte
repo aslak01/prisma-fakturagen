@@ -3,6 +3,8 @@
 
   import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 
+  import { splitStringInNs } from '$lib/utils'
+
   import {
     drawTitle,
     drawKunde,
@@ -22,7 +24,9 @@
 
   export let kunde = {
     navn: import.meta.env.VITE_MY_CUSTOMER_NAME || 'Kunde kundesen',
-    orgnr: import.meta.env.VITE_MY_CUSTOMER_ORGNO || '123321312',
+    orgno: splitStringInNs(
+      import.meta.env.VITE_MY_CUSTOMER_ORGNO || '123123123'
+    ),
     adr: import.meta.env.VITE_MY_CUSTOMER_ADDR || 'Eksempelvei 21, Byen 1234',
   }
   export let lineHeadings = {
@@ -62,7 +66,7 @@
 
   const dittFirma = {
     navn: import.meta.env.VITE_YOUR_FIRM_NAME || 'Mitt firma',
-    orgno: import.meta.env.VITE_YOUR_FIRM_ORGNO || '123123123',
+    orgno: splitStringInNs(import.meta.env.VITE_YOUR_FIRM_ORGNO || '312321123'),
     addr: import.meta.env.VITE_YOUR_FIRM_ADDR || 'Adressegassa 12, Sted 1234',
   }
   export let fakturaMeta = {
@@ -81,9 +85,9 @@
   }
 
   const dinBank = {
-    accno: import.meta.env.VITE_YOUR_BANK_ACC || '123123123',
-    iban: import.meta.env.VITE_YOUR_IBAN || 'iban123123123',
-    bic: import.meta.env.VITE_YOUR_BIC || 'BANKNAME123',
+    kontonr: import.meta.env.VITE_YOUR_BANK_ACC || '12341212345',
+    iban: import.meta.env.VITE_YOUR_IBAN || 'NO1212341212345',
+    bic: import.meta.env.VITE_YOUR_BIC || 'BANKN12XXX',
     bank: import.meta.env.VITE_YOUR_BANK || 'My Bank',
   }
 

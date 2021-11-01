@@ -28,8 +28,13 @@ export const drawKunde = (kunde, settings) => {
   const color = settings.rgb(0, 0, 0)
   const lineHeight = font.heightAtSize(size) + 5
 
-  for (const [i, value] of Object.values(kunde).entries()) {
-    page.drawText(value, {
+  for (const [i, value] of Object.entries(kunde).entries()) {
+    let string = value[1]
+    if (value[0] === 'orgno') {
+      string = 'Org.nr. ' + value[1]
+    }
+
+    page.drawText(string, {
       x,
       y: y - lineHeight * i,
       size,
@@ -60,7 +65,6 @@ export const drawFakturaLinjer = (lineHeadings, lines, settings) => {
     color,
   })
   for (const [i, value] of Object.values(lineHeadings).entries()) {
-    console.log('width', width, i)
     page.drawText(value, {
       x: xPos[i] - (i === 2 ? boldFont.widthOfTextAtSize(value, size) : 0),
       y,
@@ -100,15 +104,18 @@ export const drawFakturaInfo = (company, fakturaMeta, settings) => {
   const font = settings.font
   const boldFont = settings.boldFont
   const width = settings.width - settings.xMargin
-  const y = settings.height - settings.yMargin - headerSpace
+  const y = settings.height - settings.yMargin - 3
   const x = settings.xMargin
   const color = settings.rgb(0, 0, 0)
   const lineHeight = font.heightAtSize(size) + 5
-  const lineHeightBold = boldFont.heightAtSize(size)
 
-  for (const [i, value] of Object.values(company).entries()) {
-    page.drawText(value, {
-      x: width - font.widthOfTextAtSize(value, size),
+  for (const [i, value] of Object.entries(company).entries()) {
+    let string = value[1]
+    if (value[0] === 'orgno') {
+      string = 'Org.nr. ' + value[1]
+    }
+    page.drawText(string, {
+      x: width - font.widthOfTextAtSize(string, size),
       y: y - lineHeight * i,
       size,
       font,
@@ -198,10 +205,27 @@ export const drawPayTo = (bank, settings, linesEnd) => {
     font: boldFont,
     color,
   })
-  for (const [i, value] of Object.values(bank).entries()) {
-    console.log(value)
-    page.drawText(value, {
+  for (const [i, value] of Object.entries(bank).entries()) {
+    let key = value[0]
+    const string = value[1]
+    if (key === 'kontonr') {
+      key = 'Kontonummer '
+    } else if (key === 'bic') {
+      key = 'BIC'
+    } else if (key === 'iban') {
+      key = 'IBAN'
+    } else if (key === 'bank') {
+      key = 'Bank'
+    }
+    page.drawText(key, {
       x,
+      y: start - lineHeight * (i + 1),
+      size,
+      font,
+      color,
+    })
+    page.drawText(string, {
+      x: x + 80,
       y: start - lineHeight * (i + 1),
       size,
       font,

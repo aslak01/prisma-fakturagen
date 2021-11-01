@@ -18,3 +18,14 @@ export const formatNumberToCurrency = (n, currency = 'EUR') => {
     n
   )
 }
+
+export const splitStringInNs = (string, n = 3) => {
+  let str = string
+  if (typeof str !== 'string' || !(str instanceof String)) {
+    str = String(str)
+  }
+  return [...str]
+    .map((d, i) => (i % n === 0 ? ' ' + d : d))
+    .join('')
+    .trim()
+}
