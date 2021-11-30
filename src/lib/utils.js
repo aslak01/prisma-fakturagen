@@ -50,3 +50,9 @@ export const splitStrInIBAN = (string) => {
     .join('')
     .trim()
 }
+
+export const randomDate = () =>
+  new Date().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * 31)
+
+export const aMonthInTheFuture = () =>
+  new Date().getTime() + 1000 * 3600 * 24 * 30.5

@@ -43,8 +43,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    --background: rgba(255, 255, 255, 0.7);
-    background: var(--background);
+    background: var(--primary-color);
   }
 
   .corner {
@@ -105,7 +104,7 @@
     height: 100%;
     align-items: center;
     padding: 0 1em;
-    color: var(--heading-color);
+    color: var(--accent-color);
     font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;

@@ -3,7 +3,13 @@
 
   import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 
-  import { splitStringInNs, splitStrInBacc } from '$lib/utils'
+  import {
+    splitStringInNs,
+    randomDate,
+    aMonthInTheFuture,
+    splitStrInBacc,
+    splitStrInIBAN,
+  } from '$lib/utils'
 
   import {
     drawTitle,
@@ -17,10 +23,7 @@
   let pdf
   let pdfWasGenerated = false
 
-  const title = 'Faktura'
-  const randomDate = () =>
-    new Date().getTime() - 1000 * 3600 * 24 * Math.floor(Math.random() * 31)
-  const aMonthInTheFuture = () => new Date().getTime() + 1000 * 3600 * 24 * 30.5
+  export const title = 'Faktura'
 
   export let kunde = {
     navn: import.meta.env.VITE_MY_CUSTOMER_NAME || 'Kunde kundesen',
@@ -35,9 +38,10 @@
     pris: 'Pris',
   }
 
-  import { firstFaktura } from '$lib/demofaktura.js'
+  import { parseJson } from '$lib/parseJson.js'
+  import json from '$lib/jobs.json'
 
-  let test = firstFaktura || false
+  let test = parseJson(json)
 
   export let lines = test.length
     ? test
@@ -80,13 +84,15 @@
     },
     fakturaNr: {
       title: 'Fakturanummer',
-      value: 1,
+      value: 14,
     },
   }
 
   const dinBank = {
-    kontonr: import.meta.env.VITE_YOUR_BANK_ACC || '12341212345',
-    iban: import.meta.env.VITE_YOUR_IBAN || 'NO1212341212345',
+    kontonr: splitStrInBacc(
+      import.meta.env.VITE_YOUR_BANK_ACC || '12341212345'
+    ),
+    iban: splitStrInIBAN(import.meta.env.VITE_YOUR_IBAN || 'NO1212341212345'),
     bic: import.meta.env.VITE_YOUR_BIC || 'BANKN12XXX',
     bank: import.meta.env.VITE_YOUR_BANK || 'My Bank',
   }
@@ -111,10 +117,12 @@
       font: helvetica,
       boldFont: helveticaBold,
       rgb,
+      color: rgb(0, 0, 0),
       titleSize: 15,
       lineSize: 10,
       xMargin: 100,
       yMargin: 100,
+      marginTop: 80,
     }
 
     drawTitle(title, settings)

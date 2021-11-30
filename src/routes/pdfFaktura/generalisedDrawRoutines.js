@@ -1,14 +1,12 @@
 import { parseDate, formatNumberToCurrency } from '$lib/utils'
 
-export const drawTitle = (title, settings) => {
+export const drawString = (string, settings, x, y, big = false) => {
   const page = settings.page
-  const size = settings.titleSize
+  const size = big ? settings.titleSize : settings.lineSize
   const font = settings.boldFont
-  const y = settings.height - settings.yMargin
-  const x = settings.xMargin
-  const color = settings.rgb(0, 0, 0)
+  const color = settings.color
 
-  page.drawText(title, {
+  page.drawText(string, {
     x,
     y,
     size,
