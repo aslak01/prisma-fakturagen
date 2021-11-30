@@ -6,3 +6,4 @@ node_modules
 *.db
 .env
 demofaktura.js
+jobs.json
