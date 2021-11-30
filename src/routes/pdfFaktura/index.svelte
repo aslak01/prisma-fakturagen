@@ -104,11 +104,13 @@
     const page = pdfDoc.addPage()
     const { width, height } = page.getSize()
 
-    pdfDoc.setTitle('Faktura 1')
-    pdfDoc.setAuthor(import.meta.env.VITE_MY_NAME || 'Jonas Jonassen')
+    pdfDoc.setTitle(
+      'Faktura fra ' + dittFirma.navn + ' nr. ' + fakturaMeta.fakturaNr.value
+    )
+    pdfDoc.setAuthor(import.meta.env.VITE_MY_NAME || 'Herr Fakturaskriver')
     pdfDoc.setSubject(import.meta.env.VITE_MY_SERVICE || 'Tjeneste')
-    pdfDoc.setCreationDate(new Date('2018-06-24T01:58:37.228Z'))
-    pdfDoc.setModificationDate(new Date('2019-12-21T07:00:11.000Z'))
+    pdfDoc.setCreationDate(new Date())
+    pdfDoc.setModificationDate(new Date())
 
     const settings = {
       page,
